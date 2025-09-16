@@ -83,3 +83,7 @@ body {
 .how-to-play p {
     justify-self: center;
 }
+
+button {
+    padding: 15px 35px;
+}

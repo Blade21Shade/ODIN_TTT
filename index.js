@@ -150,26 +150,28 @@ const boardObj = (function () {
 const domManipulationObj = (function() {
     const boardEle = document.querySelector("#board-container");
     let winnerChar = "n"; // "n" is the base case for boardObj
+    let roundOver = false; // This will make it so when a round has finished the user can't keep clicking squares
 
     boardEle.addEventListener("click", (e) => {
         const cell = e.target;
         const cellID = cell.id;
         let [row, col] = cellID.split("-"); // Each cell in the HTML has an id formatted as id="row-col"
         
+        if (!roundOver) {
+            let wasPlaced = boardObj.placeMarker(playerHandler.getCurrentMarker(), row, col);
+            if (wasPlaced) {
+                // Place the marker
+                cell.innerText = playerHandler.getCurrentMarker().toUpperCase();
 
-        let wasPlaced = boardObj.placeMarker(playerHandler.getCurrentMarker(), row, col);
-        if (wasPlaced) {
-            // Place the marker
-            cell.innerText = playerHandler.getCurrentMarker().toUpperCase();
-
-            // Post placement handling
-            playerHandler.swapMarker();
-            winnerChar = boardObj.checkForWinnerOrTie();
-            if (winnerChar != "n") { // If not n, there is a winner or tie
-                updateForWinner(winnerChar);
+                // Post placement handling
+                playerHandler.swapMarker();
+                winnerChar = boardObj.checkForWinnerOrTie();
+                if (winnerChar != "n") { // If not n, there is a winner or tie
+                    roundOver = true;
+                    updateForWinner(winnerChar);
+                }
             }
         }
-
     });
 
     const thisRoundWinnerContainer = document.querySelector(".this-round-winner-container");
@@ -203,6 +205,28 @@ const domManipulationObj = (function() {
             tieWinCount.innerText = winCount;
         }
     }
+
+    const resetBoardBtn = document.querySelector("#reset-board-btn");
+    const boardCells = document.querySelectorAll("#board-container div");
+    resetBoardBtn.addEventListener("click", () => {
+        // Page
+        thisRoundWinnerContainer.style.visibility = "hidden";
+        boardCells.forEach((cell) => {
+            cell.innerText = "";
+        });
+
+        // Dom manipulation
+        roundOver = false;
+
+        // playerHandler
+        let curMarker = playerHandler.getCurrentMarker();
+        if (curMarker == "o") {
+            playerHandler.swapMarker();
+        }
+
+        // board object
+        boardObj.resetBoardArray();
+    });
 })();
 
 const playerHandler = (function() {
