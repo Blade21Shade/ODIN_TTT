@@ -172,10 +172,20 @@ const domManipulationObj = (function() {
 
     });
 
-    const thisRoundWinner = document.querySelector(".this-round-winner-container");
+    const thisRoundWinnerContainer = document.querySelector(".this-round-winner-container");
+    const thisRoundWinner = document.querySelector("#this-round-winner");
     function updateForWinner(winnerChar) {
         playerHandler.updateWinnerCount(winnerChar);
-        thisRoundWinner.style.visibility = "visible";
+        let winnerWhole = "";
+        if (winnerChar == 'x') {
+            winnerWhole = "Player 1"
+        } else if (winnerChar == 'o') {
+            winnerWhole = "Player 2"
+        } else {
+            winnerWhole = "Tie";
+        }
+        thisRoundWinner.innerText = winnerWhole;
+        thisRoundWinnerContainer.style.visibility = "visible";
     }
 })();
 
