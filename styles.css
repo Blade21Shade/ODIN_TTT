@@ -50,7 +50,6 @@ body {
     visibility: hidden;
     justify-self: center;
     font-size: 2rem;
-    
 }
 
 #board-container{
@@ -62,7 +61,7 @@ body {
     grid-template-rows: repeat(3, var(--cell-size));
 }
 
-#board-container div {
+#board-container > div {
     border: 1px solid black;
     margin: 0px;
     padding: 0px;
@@ -71,6 +70,10 @@ body {
     display: grid;
     place-items: center;
     grid-template: subgrid / subgrid;
+}
+
+#board-container div:hover {
+    cursor: pointer;
 }
 
 .how-to-play {

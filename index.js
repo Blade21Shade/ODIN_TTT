@@ -146,3 +146,74 @@ const boardObj = (function () {
 
     return {getBoardArray, resetBoardArray, placeMarker, checkForWinnerOrTie}
 })();
+
+const domManipulationObj = (function() {
+    const boardEle = document.querySelector("#board-container");
+    let winnerChar = "n"; // "n" is the base case for boardObj
+
+    boardEle.addEventListener("click", (e) => {
+        const cell = e.target;
+        const cellID = cell.id;
+        let [row, col] = cellID.split("-"); // Each cell in the HTML has an id formatted as id="row-col"
+        
+
+        let wasPlaced = boardObj.placeMarker(playerHandler.getCurrentMarker(), row, col);
+        if (wasPlaced) {
+            // Place the marker
+            cell.innerText = playerHandler.getCurrentMarker().toUpperCase();
+
+            // Post placement handling
+            playerHandler.swapMarker();
+            winnerChar = boardObj.checkForWinnerOrTie();
+            if (winnerChar != "n") { // If not n, there is a winner or tie
+                updateForWinner(winnerChar);
+            }
+        }
+
+    });
+
+    const thisRoundWinner = document.querySelector(".this-round-winner-container");
+    function updateForWinner(winnerChar) {
+        playerHandler.updateWinnerCount(winnerChar);
+        thisRoundWinner.style.visibility = "visible";
+    }
+})();
+
+const playerHandler = (function() {
+    let currentMarker = "x"; // Swaps between x and o, x goes first so start with it
+    let player1wins = 0;
+    let player2wins = 0;
+    let tieWins = 0;
+
+    function swapMarker() {
+        currentMarker = currentMarker === "x" ? "o" : "x";
+    }
+
+    function getCurrentMarker() {
+        return currentMarker;
+    }
+
+    function updateWinnerCount(winnerChar) {
+        if (winnerChar == "x") {
+            player1wins++;
+        } else if (winnerChar == "o") {
+            player2wins++;
+        } else {
+            tieWins++;
+        }
+    }
+
+    function getWinCount(char) { // Use char because it is equivalent to winnerChar used throughout the code
+        let wins = 0;
+        if (char == "x") {
+            wins = player1wins;
+        } else if (char == "o"){
+            wins = player2wins;
+        } else {
+            wins = tieWins;
+        }
+        return wins;
+    }
+
+    return {swapMarker, getCurrentMarker, updateWinnerCount, getWinCount}
+})();
