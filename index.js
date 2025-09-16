@@ -174,8 +174,11 @@ const domManipulationObj = (function() {
 
     const thisRoundWinnerContainer = document.querySelector(".this-round-winner-container");
     const thisRoundWinner = document.querySelector("#this-round-winner");
+    const player1WinCount = document.querySelector("#player-1-wins");
+    const player2WinCount = document.querySelector("#player-2-wins");
+    const tieWinCount = document.querySelector("#tie-wins");
     function updateForWinner(winnerChar) {
-        playerHandler.updateWinnerCount(winnerChar);
+        // Update winner popup
         let winnerWhole = "";
         if (winnerChar == 'x') {
             winnerWhole = "Player 1"
@@ -186,6 +189,19 @@ const domManipulationObj = (function() {
         }
         thisRoundWinner.innerText = winnerWhole;
         thisRoundWinnerContainer.style.visibility = "visible";
+
+        // Update playerHandler
+        playerHandler.updateWinnerCount(winnerChar);
+
+        // Update winner count
+        let winCount = playerHandler.getWinCount(winnerChar);
+        if (winnerChar == "x") {
+            player1WinCount.innerText = winCount;
+        } else if (winnerChar == "o") {
+            player2WinCount.innerText = winCount;
+        } else {
+            tieWinCount.innerText = winCount;
+        }
     }
 })();
 
