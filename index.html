@@ -17,20 +17,12 @@
                 <p>Player 1: X</p>
                 <p>Player 2: O</p>
             </div>
-            <div class="how-to-play">
-                <p>How to play</p>
-                <ul>
-                    <li>One after another, click squares to place your marker</li>
-                    <ul><li>Once a square is filled, it cannot be changed</li></ul>
-                    <li>If a player gets three of their markers in a line, that player wins!</li>
-                    <li>Markers can be in a line vertically, horizontally, and diagonally</li>
-                </ul>
+            <div class="win-counts">
+                <p>Player 1 wins: <span id="player-1-wins">0</span></p>
+                <p>Player 2 wins: <span id="player-2-wins">0</span></p>
+                <p>Ties: <span id="tie-wins">0</span></p>
             </div>
-            <div class="score-counts">
-                <p>Player 1 score: <span id="player-1-score">0</span></p>
-                <p>Player 2 score: <span id="player-2-score">0</span></p>
-                <p>Ties: <span id="tie-score">0</span></p>
-            </div>
+            <div class="this-round-winner-container">Round Winner: <span id="this-round-winner">Tie!</span></div>
         </div>
         <div id="board-container">
             <div id="0-0"></div>
@@ -43,6 +35,15 @@
             <div id="2-1"></div>
             <div id="2-2"></div>
         </div>
+        <div class="how-to-play">
+                <p>How to play</p>
+                <ul>
+                    <li>One after another, click squares to place your marker</li>
+                    <ul><li>Once a square is filled, it cannot be changed</li></ul>
+                    <li>If a player gets three of their markers in a line, that player wins!</li>
+                    <li>Markers can be in a line vertically, horizontally, and diagonally</li>
+                </ul>
+            </div>
     </div>
     
     <div id="post-board-container"></div>

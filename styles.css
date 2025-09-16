@@ -41,13 +41,16 @@ body {
     margin: 0px;
 }
 
-#player-info .how-to-play p {
-    justify-self: center;
-}
-
-#player-info .score-counts p {
+#player-info .win-counts p {
     justify-self: center;
     font-size: 1.5rem;
+}
+
+#player-info .this-round-winner-container {
+    visibility: hidden;
+    justify-self: center;
+    font-size: 2rem;
+    
 }
 
 #board-container{
@@ -68,4 +71,12 @@ body {
     display: grid;
     place-items: center;
     grid-template: subgrid / subgrid;
+}
+
+.how-to-play {
+    font-size: 1.5rem;
+}
+
+.how-to-play p {
+    justify-self: center;
 }
